@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Vending Machine</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+
+#header-text {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 7px;
+}
+
+.top-border {
+    margin: 15px 0;
+    height: 2px;
+    background: black;
+    background: -webkit-gradient(linear, 0 0, 100% 0, 
+    from(white), to(white), color-stop(50%, black));
+}
+
+#items, #button-overlay {
+    width: 70%;
+}
+
+#inputs {
+    margin-top: 15px;
+    width: 30%;
+    position:static;
+    float:right;
+}
+
+#item-table {
+    margin-left: 35px;
+}
+
+#money-in, #make-purchase, #change {
+    display: inline-block;
+    text-align: center;
+}
+
+#funds-label {
+    font-size: 150%;
+}
+
+#funds {
+    margin-left: 40px;
+    text-align: center;
+}
+
+#add-buttons-1, #add-buttons-2{
+    padding-top: 10px;
+}
+
+#add-dollar, #add-quarter, #add-dime, #add-nickel {
+    width: 110px;
+}
+
+.menu-borders {
+    margin: 25px 0;
+    height: 2px;
+    background: black;
+    background: -webkit-gradient(linear, 0 0, 100% 0, 
+    from(white), to(white), color-stop(50%, black));
+}
+
+#messages {
+    width: 250px;
+    height: 60px;
+    resize: none;
+    text-align: center;
+    font-weight: bolder; 
+}
+
+#messages-label {
+    font-size: 150%;
+}
+
+#item-entry-row {
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+#item-entry {
+    margin-left: 25px;
+    width: 100px;
+}
+
+#item-entry-label {
+    font-size: 150%;
+}
+
+#purchase-button {
+    width: 235px;
+}
+
+#change {
+    text-align: center;
+}
+
+#change-label {
+    font-size: 150%;
+}
+
+#change-button {
+    width: 175px;
+    margin-top: 15px;
+}
+
+#change-window {
+    text-align: center;
+    width: 250px;
+    height: 75px;
+    resize: none;
+}
+
+#item-entry {
+    text-align: center;
+}
+
+#button-overlay {
+    background-color: none;
+    position: absolute;
+    margin-left: 35px;
+    float: left;
+}
+
+.btn:hover {
+    font-weight: bolder;   
+}
+
+#error-messages {
+    display: none;
+}
+
+</style>
+
+<header>
+    <h1 id="header-text">Vending Machine</h1>
+    <div class="top-border"></div>
+</header>
+
+<body>
+    <ul class="list-group" id="errorMessages"></ul>
+    <div class="row">
+        <div id="items">
+            <table id="item-table">
+                <input type="hidden" id="item-id">
+            </table>
+
+        </div>
+
+        <div id="inputs">
+            <form class="form" id="money-in">
+                <label for="funds" id="funds-label">Total $ In</label>
+                    <input type="number" value="0.00" class="form-control" id="funds" step=".01" style="width: 150px;" disabled>
+                               
+                <div id="add-buttons-1">
+                    <button type="button" class="btn btn-primary btn-sm" id="add-dollar">Add Dollar</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="add-quarter">Add Quarter</button>
+                </div>
+                <div id="add-buttons-2">
+                    <button type="button" class="btn btn-primary btn-sm" id="add-dime">Add Dime</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="add-nickel">Add Nickel</button>
+                </div>
+                <div class="menu-borders"></div>
+            </form>
+            <div>
+                <form class="form" id="make-purchase">
+                    <label for="messages" id="messages-label">Messages</label>
+                    <textarea class="form-control" id="messages" disabled></textarea>
+                    <div class="form-group row" id="item-entry-row">
+                        <label id="item-entry-label" for="item-entry">Item:</label>
+                    <div>
+                        <input type="text" class="form-control" id="item-entry" placeholder="Item #" required>
+                    </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg" id="purchase-button">Make Purchase</button>
+                    <div class="menu-borders"></div>
+                </form>
+            </div>
+            <div>
+                <form id="change" class="form">
+                    <label for="change-window" id="change-label">Change</label>                         
+                    <textarea type="text" class="form-control" id="change-window" disabled></textarea>                            
+                    <button type="button" class="btn btn-primary" id="change-button">Change Return</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/home.js"></script> 
+</body>
+</html>
