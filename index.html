@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <title>Vending Machine</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css@2.1.0/css/nes.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/nes.css/css/nes-core.min.css" rel="stylesheet" />
 </head>
 <style>
+
+#main-body {
+    background-color: rgb(29, 28, 28);
+    color: rgb(255, 255, 255);
+    font-family: 'Press Start 2P', cursive;
+} 
 
 #header-text {
     text-align: center;
     padding-top: 10px;
     padding-bottom: 7px;
-}
-
-.top-border {
-    margin: 15px 0;
-    height: 2px;
-    background: black;
-    background: -webkit-gradient(linear, 0 0, 100% 0, 
-    from(white), to(white), color-stop(50%, black));
+    border-bottom: 8px;
+    border-color: white;
+    border-bottom-style: dashed;
+    font-size: 325%;
 }
 
 #items, #button-overlay {
@@ -46,7 +53,7 @@
 }
 
 #funds {
-    margin-left: 40px;
+    margin-left: 80px;
     text-align: center;
 }
 
@@ -55,26 +62,28 @@
 }
 
 #add-dollar, #add-quarter, #add-dime, #add-nickel {
-    width: 110px;
+    width: 145px;
 }
 
 .menu-borders {
-    margin: 25px 0;
-    height: 2px;
-    background: black;
-    background: -webkit-gradient(linear, 0 0, 100% 0, 
-    from(white), to(white), color-stop(50%, black));
+    padding-top: 8px;
+    padding-bottom: 10px;
+    border-bottom: 7px;
+    border-bottom-color: white;
+    border-bottom-style: dashed;
 }
 
 #messages {
     width: 250px;
-    height: 60px;
+    height: 95px;
     resize: none;
     text-align: center;
-    font-weight: bolder; 
+    font-weight: bolder;
+    padding-top: 12px;
 }
 
 #messages-label {
+    padding-top: 8px;
     font-size: 150%;
 }
 
@@ -93,7 +102,8 @@
 }
 
 #purchase-button {
-    width: 235px;
+    width: 250px;
+    height: 50px;
 }
 
 #change {
@@ -101,18 +111,20 @@
 }
 
 #change-label {
+    padding-top: 9px;
     font-size: 150%;
 }
 
 #change-button {
-    width: 175px;
+    width: 200px;
     margin-top: 15px;
+    margin-left: 15px;
 }
 
 #change-window {
     text-align: center;
     width: 250px;
-    height: 75px;
+    height: 95px;
     resize: none;
 }
 
@@ -135,21 +147,26 @@
     display: none;
 }
 
+#make-purchase, #change {
+    margin-left: 18px;
+}
+
+.nes-btn {
+    font-weight: bold;
+}
+
 </style>
 
 <header>
-    <h1 id="header-text">Vending Machine</h1>
-    <div class="top-border"></div>
+    <p id="header-text"><i class="nes-icon coin is-large"></i> Vending Machine <i class="nes-icon coin is-large"></i></p>
 </header>
 
-<body>
+<body id="main-body">
     <ul class="list-group" id="errorMessages"></ul>
     <div class="row">
         <div id="items">
             <table id="item-table">
-                <input type="hidden" id="item-id">
             </table>
-
         </div>
 
         <div id="inputs">
@@ -158,12 +175,12 @@
                     <input type="number" value="0.00" class="form-control" id="funds" step=".01" style="width: 150px;" disabled>
                                
                 <div id="add-buttons-1">
-                    <button type="button" class="btn btn-primary btn-sm" id="add-dollar">Add Dollar</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="add-quarter">Add Quarter</button>
+                    <button type="button" class="nes-btn is-primary" id="add-dollar">Add Dollar</button>
+                    <button type="button" class="nes-btn is-primary" id="add-quarter">Add Quarter</button>
                 </div>
                 <div id="add-buttons-2">
-                    <button type="button" class="btn btn-primary btn-sm" id="add-dime">Add Dime</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="add-nickel">Add Nickel</button>
+                    <button type="button" class="nes-btn is-primary" id="add-dime">Add Dime</button>
+                    <button type="button" class="nes-btn is-primary" id="add-nickel">Add Nickel</button>
                 </div>
                 <div class="menu-borders"></div>
             </form>
@@ -177,7 +194,7 @@
                         <input type="text" class="form-control" id="item-entry" placeholder="Item #" required>
                     </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-lg" id="purchase-button">Make Purchase</button>
+                    <button type="button" class="nes-btn is-success" id="purchase-button">Make Purchase</button>
                     <div class="menu-borders"></div>
                 </form>
             </div>
@@ -185,7 +202,7 @@
                 <form id="change" class="form">
                     <label for="change-window" id="change-label">Change</label>                         
                     <textarea type="text" class="form-control" id="change-window" disabled></textarea>                            
-                    <button type="button" class="btn btn-primary" id="change-button">Change Return</button>
+                    <button type="button" class="nes-btn is-error" id="change-button">Change Return</button>
                 </form>
             </div>
         </div>
