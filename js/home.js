@@ -5,26 +5,27 @@ $(document).ready(function() {
 });
 
 function loadItems() {
-    var itemTables = $("#item-table");
+    
     var itemSelector = $("#item-selector");
+    
 
     $.ajax({
         type: "GET",
-        url: " https://tsg-vending.herokuapp.com/items",
+        url: " http://tsg-vending.herokuapp.com/items",
         headers: {
             'Content-Type': 'application/json'
           },
           success: function(data) {
+            var itemTables = $("#item-table");
+            var table = "";
               console.log(data);
               $.each(data, function(index, item){
                 var name = item.name;
                 var price = item.price;
                 var quantity = item.quantity;
                 var id = item.id;
-                var index;
-
                 
-                var table = "<table onclick='itemSelect(" + item.id +")' style='border:2px solid black; width:225px; height:225px; float: left; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px;'>";
+                    table = "<table onclick='itemSelect(" + item.id +")' style='border:4px dashed white; width:225px; height:225px; float: left; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px;'>";
                     table += "<tr>"
                     table += "<td style='height: 15px; padding-left: 7px; padding-top:3px'>"+ item.id +"</td>"
                     table += "</tr>"
@@ -32,13 +33,12 @@ function loadItems() {
                     table += "<td style='text-align:center'>" + name + "</td>"
                     table += "</tr>"
                     table += "<tr>"
-                    table += "<td style='text-align:center'>$" + price + "</td>"
+                    table += "<td class='nes-text is-success' style='text-align:center'>$" + price + "</td>"
                     table += "</tr>"
                     table += "<tr>"
                     table += "<td style='text-align:center'>Quantity Left:" + quantity + "</td>"
                     table += "</tr>"
                     table += "</table>"
-                $("#item-id").val(id);
                 itemTables.append(table);
               });
           },
@@ -84,7 +84,7 @@ function displayInputForms() {
 
         $.ajax ({
             type: "GET",
-            url: "https://tsg-vending.herokuapp.com/money/" + funds + "/item/" + id,
+            url: "http://tsg-vending.herokuapp.com/money/" + funds + "/item/" + id,
             headers: {
                 "Accept": "application/json"
             },
@@ -95,6 +95,9 @@ function displayInputForms() {
                 var change = calculateChange(data);
                 $("#change-window").val(change);
                 console.log(change);
+                $("#item-table").empty();
+                loadItems();
+                $("#funds").val(0.00);
             },
             error: function(data) {
                 var error = data.responseJSON.message;
@@ -102,8 +105,6 @@ function displayInputForms() {
                 $("#messages").val(error);
             }
         })
-        hideItems();
-        loadItems();
     });
 
     function itemSelect(id) {
@@ -195,5 +196,5 @@ function displayInputForms() {
     });
 
     function hideItems() {
-        $("#item-table").val("");
+        $("#item-table").hide;
     }
