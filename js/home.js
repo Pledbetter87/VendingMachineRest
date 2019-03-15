@@ -11,7 +11,7 @@ function loadItems() {
 
     $.ajax({
         type: "GET",
-        url: " http://tsg-vending.herokuapp.com/items",
+        url: " https://tsg-vending.herokuapp.com/items",
         headers: {
             'Content-Type': 'application/json'
           },
@@ -84,7 +84,7 @@ function displayInputForms() {
 
         $.ajax ({
             type: "GET",
-            url: "http://tsg-vending.herokuapp.com/money/" + funds + "/item/" + id,
+            url: "https://tsg-vending.herokuapp.com/money/" + funds + "/item/" + id,
             headers: {
                 "Accept": "application/json"
             },
