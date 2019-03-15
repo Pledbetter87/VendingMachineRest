@@ -13,7 +13,7 @@
 <style>
 
 #main-body {
-    background-color: rgb(29, 28, 28);
+    background-color: rgb(41, 40, 40);
     color: rgb(255, 255, 255);
     font-family: 'Press Start 2P', cursive;
 } 
@@ -50,11 +50,17 @@
 
 #funds-label {
     font-size: 150%;
+    margin-left: 50px;
 }
 
 #funds {
     margin-left: 80px;
     text-align: center;
+}
+
+#total-in-symbol {
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 #add-buttons-1, #add-buttons-2{
@@ -155,23 +161,61 @@
     font-weight: bold;
 }
 
+/* defines the style that will be applied for that moment within the animation. 
+The animation engine will smoothly interpolate style between the keyframes. */
+ @-webkit-keyframes spinner {
+    from { -webkit-transform: rotateY(0deg);    }
+    to   { -webkit-transform: rotateY(-360deg); }
+  }
+
+  @keyframes spinner {
+    from {
+      -moz-transform: rotateY(0deg);
+      -ms-transform: rotateY(0deg);
+      transform: rotateY(0deg);
+    }
+    to {
+      -moz-transform: rotateY(-360deg);
+      -ms-transform: rotateY(-360deg);
+      transform: rotateY(-360deg);
+    }
+  }
+
+  #spinner {
+    -webkit-animation-name: spinner;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 4s;
+
+    animation-name: spinner;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 4s;
+    max-width: 4%;
+    max-height: 4%;
+    margin-bottom: 8px;
+  }
+
+
 </style>
 
 <header>
-    <p id="header-text"><i class="nes-icon coin is-large"></i> Vending Machine <i class="nes-icon coin is-large"></i></p>
+    <p id="header-text"><img id="spinner" src="https://ya-webdesign.com/images600_/vector-coin-mario.png"> Vending Machine <img id="spinner" src="https://ya-webdesign.com/images600_/vector-coin-mario.png"></p>
 </header>
 
 <body id="main-body">
     <ul class="list-group" id="errorMessages"></ul>
+    <!-- Dynamic Item Display -->
     <div class="row">
         <div id="items">
             <table id="item-table">
             </table>
         </div>
 
+        <!-- Vending Machine Controls -->
         <div id="inputs">
             <form class="form" id="money-in">
-                <label for="funds" id="funds-label">Total $ In</label>
+                <label class="row" for="funds" id="funds-label">Total <p id="total-in-symbol" class='nes-text is-success'> $ </p> In</label>
                     <input type="number" value="0.00" class="form-control" id="funds" step=".01" style="width: 150px;" disabled>
                                
                 <div id="add-buttons-1">
@@ -191,7 +235,7 @@
                     <div class="form-group row" id="item-entry-row">
                         <label id="item-entry-label" for="item-entry">Item:</label>
                     <div>
-                        <input type="text" class="form-control" id="item-entry" placeholder="Item #" required>
+                        <input type="text" class="form-control" id="item-entry" placeholder="Item #" disabled>
                     </div>
                     </div>
                     <button type="button" class="nes-btn is-success" id="purchase-button">Make Purchase</button>
